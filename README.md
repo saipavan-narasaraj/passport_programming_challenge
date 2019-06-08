@@ -31,3 +31,8 @@ Visit [localhost:3000](http://localhost:3000)
 * **test**    : Contains testcases for API's.
 * **routes**  : Contains files for handeling API requests.
 * **helpers** : Contains helper files.
+
+## Notes
+
+* Rate Limiter is implemented to prevent Denial-of-service(DOS) attack.
+* Input field validation includes prevention of any script injection's.
