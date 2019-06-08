@@ -43,8 +43,7 @@
     <!-- Container END -->
 
     <!-- Modal Start -->
-    <div class="modal fade" id="factoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="factoryModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -85,12 +84,43 @@
     </div>
     <!-- Modal End -->
 
+    <!-- Factory Name Change Modal Start -->
+    <div class="modal fade" id="factoryNameModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Factory Name Change Modal </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" id="factoryNameModalAlert" style="display: none;" role="alert">
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="factory-name" class="col-form-label">Factory Name:</label>
+                            <input type="text" class="form-control" required id="factory-name-update">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="updateFactoryNameButton">Update Name</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal End -->
+
     <!-- Script files -->
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="javascripts/support/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/support/popper.min.js"></script>
     <script type="text/javascript" src="javascripts/support/bootstrap.min.js"></script>
     <script type="module" src="javascripts/main.js"></script>
+    <script type="text/javascript">
+    </script>
 </body>
 
 </html>

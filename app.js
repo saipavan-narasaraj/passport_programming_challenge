@@ -24,7 +24,7 @@ const getFactories = require('./routes/getFactories');
 const createFactory = require('./routes/createFactory');
 const deleteFactory = require('./routes/deleteFactory');
 const updateFactory = require('./routes/updateFactory');
-const jsonSchemaValidator = require('./helpers/jsonSchemaValidator');
+const updateFactoryName = require('./routes/updateFactoryName');
 
 /* 
     MongoDB connection through Mongoose. 
@@ -35,11 +35,11 @@ mongoose.set('useCreateIndex', true);
 
 
 
-if (process.env.MONGODB_URI) {
+if (process.env.MONGOLAB_URI) {
     /* 
        use the below for connection to mLab MongoDB (deployment DB).
     */
-    mongoose.connect(process.env.MONGODB_URI)
+    mongoose.connect(process.env.MONGOLAB_URI)
         .catch((err) => console.error('error connecting to mongo', err));
 } else {
     /* 
@@ -69,12 +69,12 @@ app.use(function (req, res, next) {
 })
 
 /* 
-    API's to handle requests. jsonSchemaValidator is used to validate POST and PUT request body.
+    API's to handle requests. 
 */
 app.get('/', homePage);
 app.get('/getFactories', getFactories);
 app.delete('/deleteFactory/:name', deleteFactory);
-app.use(jsonSchemaValidator)
+app.put('/updateFactoryName/:name', updateFactoryName);
 app.post('/createFactory', createFactory);
 app.put('/updateFactory/:name', updateFactory);
 

@@ -52,6 +52,13 @@ body{
   padding-top: .15rem;
   padding-bottom: .15rem;
   font-weight: 600;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.factoryRange{
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .chilren-name{
@@ -95,4 +102,13 @@ ul li:last-of-type:before {
 
 #factoryRoot > li:last-of-type:before{
   height: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  .root-title { 
+    padding-left: 2%;
+  }
+  #factoryRoot {
+    margin-left:0 
+  }
 }

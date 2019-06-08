@@ -14,6 +14,9 @@ export function buildFactories(data) {
         fragment.appendChild(factoryList);
     })
     root.appendChild(fragment)
+    if (isTouchDevice() === false) {
+        $('[data-toggle="tooltip"]').tooltip()
+    }
 }
 
 // Function to build html elements for new factory and append it to DOM
@@ -25,6 +28,9 @@ export function newFactory(data) {
     factoryList.appendChild(childNodes)
     fragment.appendChild(factoryList);
     root.appendChild(fragment)
+    if (isTouchDevice() === false) {
+        $('[data-toggle="tooltip"]').tooltip()
+    }
 }
 
 // Function to remove factory from DOM
@@ -46,6 +52,12 @@ export function updateFactory(factory) {
         factoryNode.append(childNodes)
     }
 }
+// Function to update factory DOM nodes with new name.
+export function updateFactoryName(data) {
+    let factoryNode = document.querySelector(`li[data-factory-name='${data.oldName}']`);
+    factoryNode.setAttribute("data-factory-name", data.newName)
+    factoryNode.getElementsByClassName("factory-name")[0].textContent = data.newName
+}
 
 // Function to construct DOM nodes for factories.
 function createFactoryTemplate(factoryName, minRange, maxRange) {
@@ -57,11 +69,13 @@ function createFactoryTemplate(factoryName, minRange, maxRange) {
     nameDiv.setAttribute("class", "col-4 col-md-7 factory-name")
     nameDiv.textContent = factoryName;
     let range = genetarateMicroButtons("range", factoryName, minRange, maxRange)
-    let editButton = genetarateMicroButtons("edit", factoryName)
+    let editNameButton = genetarateMicroButtons("editName", factoryName)
+    let editChildrenButton = genetarateMicroButtons("editChildren", factoryName)
     let deleteButton = genetarateMicroButtons("delete", factoryName)
     div.appendChild(nameDiv)
     div.appendChild(range)
-    div.appendChild(editButton)
+    div.appendChild(editNameButton)
+    div.appendChild(editChildrenButton)
     div.appendChild(deleteButton)
     li.appendChild(div)
     return li
@@ -88,7 +102,7 @@ function genetarateMicroButtons(type, factoryName, minRange = null, maxRange = n
     let button = document.createElement('button');
     let span = document.createElement('span');
     if (type === "range") {
-        div.setAttribute("class", "col-4 col-md-3 d-flex flex-row justify-content-center align-items-center")
+        div.setAttribute("class", "col-2 col-md-2 d-flex flex-row justify-content-center align-items-center")
         span.setAttribute("class", "badge badge-pill badge-secondary factoryRange")
         span.textContent = `${minRange} : ${maxRange}`
         div.appendChild(span)
@@ -96,22 +110,77 @@ function genetarateMicroButtons(type, factoryName, minRange = null, maxRange = n
     }
     div.setAttribute("class", "col-2 col-md-1 d-flex flex-row justify-content-center align-items-center")
     button.setAttribute("type", "button")
-    // button.setAttribute("data-factory-name", factoryIndex)
+    button.setAttribute("data-toggle", "tooltip")
+    button.setAttribute("data-placement", "top")
     span.setAttribute("data-factory-name", factoryName)
-    if (type === "edit") {
-        button.setAttribute("data-factory-action", "edit")
+    if (type === "editName") {
+        button.setAttribute("data-factory-action", "editName")
         button.setAttribute("class", "btn btn-outline-secondary")
-        span.setAttribute("data-factory-action", "edit")
+        button.setAttribute("title", "Edit Factory Name")
+        span.setAttribute("data-factory-action", "editName")
         span.setAttribute("class", "oi oi-pencil")
+    } else if (type === "editChildren") {
+        button.setAttribute("data-factory-action", "editChildren")
+        button.setAttribute("class", "btn btn-outline-secondary")
+        button.setAttribute("title", "Edit Child Nodes")
+        span.setAttribute("data-factory-action", "editChildren")
+        span.setAttribute("class", "oi oi-cog")
     } else if (type === "delete") {
         button.setAttribute("class", "btn btn-outline-secondary")
         button.setAttribute("data-factory-action", "delete")
+        button.setAttribute("title", "Delete Factory")
         span.setAttribute("data-factory-action", "delete")
         span.setAttribute("class", "oi oi-trash")
     }
     button.appendChild(span)
     div.appendChild(button)
     return div
+}
+
+// Function to validate fanctory name input.
+export function validateFactoryName(name) {
+    let errors = [];
+    let isValid = true;
+    let validNameRegex = /^[a-zA-Z1-9\s]*$/;
+    let nameVal = name.val().trim();
+
+    if (!nameVal) {
+        errors.push("Factory Name is required")
+        isValid = false;
+        name.addClass("alert-danger");
+    } else {
+        name.removeClass("alert-danger");
+    }
+    if (nameVal) {
+        if (!validNameRegex.test(nameVal)) {
+            errors.push("Factory Name is invalid. Input field must only contain characters a-z, A-z, 0-9 and spaces")
+            isValid = false;
+            name.addClass("alert-danger");
+        } else {
+            name.removeClass("alert-danger");
+        }
+    }
+    if (nameVal.length < 3 || nameVal.length > 50) {
+        errors.push("Factory Name should contain 3 to 50 characers.")
+        isValid = false;
+        name.addClass("alert-danger");
+    } else {
+        name.removeClass("alert-danger");
+    }
+    if (isValid) {
+        return {
+            isValid: true,
+            data: {
+                "name": nameVal
+            }
+        }
+    } else {
+        return {
+            isValid: false,
+            name: nameVal,
+            errors: errors
+        }
+    }
 }
 
 // Function to validate user input.
@@ -241,4 +310,8 @@ export function inputValidator(name, min, max, childNodes) {
             errors: errors
         }
     }
+}
+// Disable tooltip on touch devices
+function isTouchDevice() {
+    return true == ("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
 }

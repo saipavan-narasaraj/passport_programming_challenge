@@ -1,4 +1,4 @@
-import { inputValidator, buildFactories, removeFactory, updateFactory, newFactory } from '/javascripts/utils.mjs';
+import { inputValidator, buildFactories, removeFactory, updateFactory, updateFactoryName, newFactory, validateFactoryName } from '/javascripts/utils.mjs';
 
 /*
     Document Object Model (DOM) is ready
@@ -30,8 +30,14 @@ $(document).ready(function () {
         updateFactory(data.data)
     });
 
+    // socket's 'updateFactory' event listener.  
+    socket.on("updateFactoryName", function (data) {
+        updateFactoryName(data.data)
+    });
+
     // onclick click listener for 'Add Factory' button.
     document.getElementById("addFactoryButton").onclick = function (event) {
+        event.stopPropagation();
         clearModalInput();
         modalView = "create";
         document.getElementById("factoryModalLabel").textContent = "Create New Factory"
@@ -47,13 +53,15 @@ $(document).ready(function () {
         event.stopPropagation()
         let element = event.target;
         let parent = element.closest("li[data-factory-name]");
-        let name = parent.getAttribute("data-factory-name")
+        let name = parent.getAttribute("data-factory-name");
         if (element.hasAttribute("data-factory-action")) {
             let action = element.getAttribute("data-factory-action")
-            if (action === "edit") {
+            if (action === "editChildren") {
                 clearModalInput();
-                modalView = "edit";
+                modalView = "editChildren";
                 editFactory(name)
+            } else if (action === "editName") {
+                editFactoryName(name)
             } else if (action === "delete") {
                 deleteFactory(name)
             }
@@ -88,6 +96,35 @@ function generateFactory(event) {
     }
 }
 
+function editFactoryName(name) {
+    $("#factory-name-update").val("")
+    $('#factoryNameModal').modal('show');
+    document.getElementById("updateFactoryNameButton").onclick = function (event) {
+        let newName = $("#factory-name-update");
+        let validator = validateFactoryName(newName);
+        if (validator.isValid) {
+            $.ajax({
+                url: "/updateFactoryName/" + name,
+                type: 'PUT',
+                data: JSON.stringify(validator.data),
+                contentType: 'application/json',
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        $('#factoryNameModal').modal('hide');
+                    };
+                }
+            }).fail(function () {
+                $('#factoryNameModal').modal('hide');
+                errorMessage("updating factory")
+            });
+        } else if (!validator.isValid) {
+            $("#factoryNameModalAlert").show();
+            $("#factoryNameModalAlert").html(`- ${validator.errors.join("<br> - ")}`)
+        }
+    }
+}
+
 // Function to handle errors.
 function errorMessage(message) {
     $("#mainAlert").show();
@@ -103,7 +140,6 @@ function editFactory(name) {
     $('#factoryModal').modal('show');
     document.getElementById("generateFactory").onclick = function (event) {
         let validator = validateInput();
-        console.log(validator);
         if (validator.isValid) {
             $.ajax({
                 url: "/updateFactory/" + name,
