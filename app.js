@@ -35,11 +35,11 @@ mongoose.set('useCreateIndex', true);
 
 
 
-if (process.env.MONGOLAB_URI) {
+if (process.env.MONGODB_URI) {
     /* 
        use the below for connection to mLab MongoDB (deployment DB).
     */
-    mongoose.connect(process.env.MONGOLAB_URI)
+    mongoose.connect(process.env.MONGODB_URI)
         .catch((err) => console.error('error connecting to mongo', err));
 } else {
     /* 
