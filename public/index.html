@@ -17,9 +17,13 @@
     <div class="header">
         <h3 class="header-title">Passport Inc</h3>
     </div>
+    <div id="loadingDiv">
+        <div class="spinner"></div>
+    </div>
 
     <!-- Container END -->
     <div class="container">
+        <!-- Loading Spinner -->
 
         <!-- Alert div to display errors. -->
         <div class="row alert alert-danger" id="mainAlert" style="display: none;" role="alert">
@@ -29,7 +33,7 @@
                 Root
             </div>
             <div class="col-4 d-flex flex-row justify-content-center align-items-center">
-                <button type="button" id="addFactoryButton" class="btn btn-outline-secondary"><span
+                <button type="button" id="addFactoryButton" class="btn btn-outline-secondary" disabled="true"><span
                         class="oi oi-plus"></span> Add
                     Factory</button>
             </div>

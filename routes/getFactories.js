@@ -4,7 +4,6 @@ const factorySchema = require('../models/factorySchema');
 */
 module.exports = async (req, res, next) => {
     try {
-
         let factories = await factorySchema.find();
         res.status(200).json({
             data: factories

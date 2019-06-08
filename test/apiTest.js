@@ -63,12 +63,32 @@ describe("TESTING API'S", () => {
 
         });
     })
+
+    describe('PUT /updateFactory', () => {
+        /* 
+                Test API to update factory name.
+        */
+        it('OK, update factory works', (done) => {
+            request(app).put('/updateFactoryName/TEST')
+                .send({ name: 'TEST2' })
+                .then((res) => {
+                    const body = res.body;
+                    res.status.should.be.equal(200)
+                    expect(body).to.contain.property('success');
+                    body.success.should.be.eql(true);
+                    done();
+                })
+                .catch((err) => done(err));
+
+        });
+    })
+
     /* 
             Test API to delete factory.
     */
     describe('DELETE /deleteFactory', () => {
         it('OK, delete factory works', (done) => {
-            request(app).delete('/deleteFactory/TEST')
+            request(app).delete('/deleteFactory/TEST2')
                 .then((res) => {
                     const body = res.body;
                     res.status.should.be.equal(200)

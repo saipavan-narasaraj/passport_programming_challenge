@@ -13,7 +13,10 @@ $(document).ready(function () {
         $("#mainAlert").hide();
     }).fail(function (err) {
         errorMessage("feching factories")
-    })
+    }).always(function () {
+        document.getElementById("loadingDiv").style.display = "none";
+        document.getElementById("addFactoryButton").disabled = false;
+    });
 
     // socket's 'newFactory' event listener.  
     socket.on("newFactory", function (data) {
@@ -97,7 +100,8 @@ function generateFactory(event) {
 }
 
 function editFactoryName(name) {
-    $("#factory-name-update").val("")
+    $("#factory-name-update").val("");
+    $('#factoryNameModalAlert').hide();
     $('#factoryNameModal').modal('show');
     document.getElementById("updateFactoryNameButton").onclick = function (event) {
         let newName = $("#factory-name-update");
