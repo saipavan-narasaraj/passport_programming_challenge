@@ -64,11 +64,11 @@ describe("TESTING API'S", () => {
         });
     })
 
-    describe('PUT /updateFactory', () => {
+    describe('PUT /updateFactoryName', () => {
         /* 
                 Test API to update factory name.
         */
-        it('OK, update factory works', (done) => {
+        it('OK, update factory name works', (done) => {
             request(app).put('/updateFactoryName/TEST')
                 .send({ name: 'TEST2' })
                 .then((res) => {
