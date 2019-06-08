@@ -1,0 +1,93 @@
+
+/* 
+  Custom CSS
+*/
+
+html, head , body{
+  padding: 0%;
+  margin: 0%;
+  height: 100%;
+  width: 100%;
+}
+
+body{
+  background-color: #f8f9fa;
+}
+
+.header{
+  background-color: #292b2c;
+}
+
+.header-title{
+  display: inline-block;
+  padding-top: .25rem;
+  padding-bottom: .2rem;
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  line-height: inherit;
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+.root-title{
+  font-size: 1.8rem;
+  padding-top: .15rem; 
+  padding-bottom: .15rem;
+  font-weight: 700;
+}
+
+#factoryRoot{
+  margin-left: 2rem;
+  margin-top: 1rem
+}
+
+.factoryRange{
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.factory-name{
+  font-size: 1.6rem;
+  padding-top: .15rem;
+  padding-bottom: .15rem;
+  font-weight: 600;
+}
+
+.chilren-name{
+  font-size: 1.3rem;
+  padding-top: .1rem;
+  padding-bottom: .1rem;
+  font-weight: 300;
+}
+
+.margin-top-10{
+  margin-top: 10%;
+}
+
+#mainAlert{
+  margin-top: 1%;
+}
+
+/* ul {
+  list-style: none;
+}
+
+ul li {
+  position:relative
+}
+
+ul li:before{
+  content: '';
+  position:absolute;
+  border-left:2px solid ;
+  left:-14px;
+  z-index:-1;
+  height:100%
+}
+
+ul li:last-child:before{
+  height: 50%;
+} */
+/* ul li:last-child{
+  padding-bottom:0
+} */

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Passport Inc</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="stylesheets/support/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/support/font/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+
+</head>
+
+<body>
+    <div class="header">
+        <h3 class="header-title">Passport Inc</h3>
+    </div>
+
+    <!-- Container END -->
+    <div class="container">
+
+        <!-- Alert div to display errors. -->
+        <div class="row alert alert-danger" id="mainAlert" style="display: none;" role="alert">
+        </div>
+        <div class="row margin-top-10">
+            <div class="col-7 root-title">
+                Root
+            </div>
+            <div class="col-4 d-flex flex-row justify-content-center align-items-center">
+                <button type="button" id="addFactoryButton" class="btn btn-outline-secondary"><span
+                        class="oi oi-plus"></span> Add
+                    Factory</button>
+            </div>
+        </div>
+        <div>
+            <ul id="factoryRoot">
+
+            </ul>
+        </div>
+    </div>
+    <!-- Container END -->
+
+    <!-- Modal Start -->
+    <div class="modal fade" id="factoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="factoryModalLabel"> Factory Modal </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" id="madalAlert" style="display: none;" role="alert">
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="factory-name" class="col-form-label">Factory Name:</label>
+                            <input type="text" class="form-control" required id="factory-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="factory-min-range" class="col-form-label">Factory Min Range:</label>
+                            <input type="number" min="1" class="form-control" required id="factory-min-range">
+                        </div>
+                        <div class="form-group">
+                            <label for="factory-max-range" class="col-form-label">Factory Max Range:</label>
+                            <input type="number" min="1" class="form-control" required id="factory-max-range">
+                        </div>
+                        <div class="form-group">
+                            <label for="factory-child-nodes" class="col-form-label">Number of Child Nodes:</label>
+                            <input type="number" min="1" max="15" class="form-control" required
+                                id="factory-child-nodes">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="generateFactory">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal End -->
+
+    <!-- Script files -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="javascripts/support/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/support/popper.min.js"></script>
+    <script type="text/javascript" src="javascripts/support/bootstrap.min.js"></script>
+    <script type="module" src="javascripts/main.js"></script>
+</body>
+
+</html>
