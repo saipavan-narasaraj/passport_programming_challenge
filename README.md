@@ -11,4 +11,4 @@ Start Server
 Run Tests
 ```npm test```
 
-Visit [localhost:5000/notes](http://localhost:3000)
+Visit [localhost:3000](http://localhost:3000)
