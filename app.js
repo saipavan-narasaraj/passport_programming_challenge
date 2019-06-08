@@ -33,16 +33,23 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-/* 
-   use the below for connection to local MongoDB (development DB).
-*/
-// mongoose.connect('mongodb://localhost:27017/passportProgrammingChallenge')
 
-/* 
-   use the below for connection to mLab MongoDB (deployment DB).
-*/
-mongoose.connect('mongodb+srv://admin:admin@cluster0-eifgw.mongodb.net/test?retryWrites=true&w=majority')
-    .catch((err) => console.error('error connecting to mongo', err));
+
+if (process.env.MONGOLAB_URI) {
+    /* 
+       use the below for connection to mLab MongoDB (deployment DB).
+    */
+    mongoose.connect(process.env.MONGOLAB_URI)
+        .catch((err) => console.error('error connecting to mongo', err));
+} else {
+    /* 
+         use the below for connection to local MongoDB (development DB).
+    */
+    mongoose.connect('mongodb://localhost:27017/passportProgrammingChallenge')
+        .catch((err) => console.error('error connecting to mongo', err));
+
+}
+
 
 app.use(limiter);
 app.use(logger('dev'));
