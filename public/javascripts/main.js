@@ -70,6 +70,9 @@ $(document).ready(function () {
             }
         }
     }
+
+    console.log(" Coded with \u2665");
+
 });
 
 // Function to generate new factory.
@@ -132,7 +135,10 @@ function editFactoryName(name) {
 // Function to handle errors.
 function errorMessage(message) {
     $("#mainAlert").show();
-    $("#mainAlert").html("Server error while " + message);
+    let closeButton = `<button type="button" class="close " data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>`
+    $("#mainAlert").html("error while " + message + closeButton);
 }
 
 // Function to edit factory.
@@ -152,7 +158,6 @@ function editFactory(name) {
                 contentType: 'application/json',
                 dataType: "json",
                 success: function (response) {
-                    console.log(response);
                     if (response.success) {
                         $('#factoryModal').modal('hide');
                     };
@@ -172,10 +177,7 @@ function editFactory(name) {
 function deleteFactory(name) {
     $.ajax({
         url: "/deleteFactory/" + name,
-        type: 'DELETE',
-        success: function (response) {
-            console.log(response);
-        }
+        type: 'DELETE'
     }).fail(function () {
         $('#factoryModal').modal('hide');
         errorMessage("deleting factory")
