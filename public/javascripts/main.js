@@ -32,6 +32,7 @@ $(document).ready(function () {
 
     // onclick click listener for 'Add Factory' button.
     document.getElementById("addFactoryButton").onclick = function (event) {
+        clearModalInput();
         modalView = "create";
         document.getElementById("factoryModalLabel").textContent = "Create New Factory"
         document.getElementById('factory-name').disabled = false;
@@ -50,6 +51,7 @@ $(document).ready(function () {
         if (element.hasAttribute("data-factory-action")) {
             let action = element.getAttribute("data-factory-action")
             if (action === "edit") {
+                clearModalInput();
                 modalView = "edit";
                 editFactory(name)
             } else if (action === "delete") {
@@ -81,8 +83,8 @@ function generateFactory(event) {
             errorMessage("creating factory")
         })
     } else if (!validator.isValid) {
-        $("#madalAlert").show();
-        $("#madalAlert").html(validator.errors.join("<br>"))
+        $("#modalAlert").show();
+        $("#modalAlert").html(`- ${validator.errors.join("<br> - ")}`)
     }
 }
 
@@ -119,7 +121,9 @@ function editFactory(name) {
                 $('#factoryModal').modal('hide');
                 errorMessage("updating factory")
             });
-
+        } else if (!validator.isValid) {
+            $("#modalAlert").show();
+            $("#modalAlert").html(`- ${validator.errors.join("<br> - ")}`)
         }
     }
 }
@@ -138,11 +142,22 @@ function deleteFactory(name) {
     });
 }
 
-
+// Function to validate input.
 function validateInput() {
     let factoryName = $("#factory-name");
     let factoryMinRange = $("#factory-min-range");
     let factoryMaxRange = $("#factory-max-range");
     let factorychildrenCount = $("#factory-child-nodes");
     return inputValidator(factoryName, factoryMinRange, factoryMaxRange, factorychildrenCount);
+}
+
+// Function to clear modal input.
+
+function clearModalInput() {
+    $("#modalAlert").hide();
+    // $('#factoryModal').modal('hide');
+    $("#factory-name").val("")
+    $("#factory-min-range").val("");
+    $("#factory-max-range").val("");
+    $("#factory-child-nodes").val("");
 }

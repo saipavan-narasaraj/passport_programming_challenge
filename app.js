@@ -34,12 +34,12 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
 /* 
-   use the below for connection local MongoDB .
+   use the below for connection to local MongoDB (development DB).
 */
 // mongoose.connect('mongodb://localhost:27017/passportProgrammingChallenge')
 
 /* 
-   use the below for connection mLab MongoDB .
+   use the below for connection to mLab MongoDB (deployment DB).
 */
 mongoose.connect('mongodb+srv://admin:admin@cluster0-eifgw.mongodb.net/test?retryWrites=true&w=majority')
     .catch((err) => console.error('error connecting to mongo', err));

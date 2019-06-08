@@ -34,6 +34,7 @@ body{
   padding-top: .15rem; 
   padding-bottom: .15rem;
   font-weight: 700;
+  padding-left: 38px;
 }
 
 #factoryRoot{
@@ -68,7 +69,7 @@ body{
   margin-top: 1%;
 }
 
-/* ul {
+ul {
   list-style: none;
 }
 
@@ -77,17 +78,21 @@ ul li {
 }
 
 ul li:before{
-  content: '';
+  content: '-';
   position:absolute;
-  border-left:2px solid ;
-  left:-14px;
+  border-left:2px solid gray ;
+  left:-17px;
   z-index:-1;
-  height:100%
+  height:100%;
+}
+ul li:last-of-type:before {
+  height: 18px;
 }
 
-ul li:last-child:before{
-  height: 50%;
-} */
-/* ul li:last-child{
-  padding-bottom:0
-} */
+#factoryRoot > li:before{
+  top:10px;
+}
+
+#factoryRoot > li:last-of-type:before{
+  height: 15px;
+}

@@ -122,10 +122,8 @@ export function inputValidator(name, min, max, childNodes) {
     let maxVal = parseInt(Math.round(max.val()));
     let childNodesVal = parseInt(Math.round(childNodes.val()));
     let nameVal = name.val().trim();
-    var validNameRegex = /^[a-zA-Z1-9\s]*$/;
-    // console.log(regex.test(name));
-
-
+    let validNameRegex = /^[a-zA-Z1-9\s]*$/;
+    let threashold = 100000;
     if (!nameVal) {
         errors.push("Factory Name is required")
         isValid = false;
@@ -159,15 +157,30 @@ export function inputValidator(name, min, max, childNodes) {
     }
 
     if (nameVal && minVal && maxVal && childNodesVal) {
-        console.log(validNameRegex.test(nameVal));
-
         if (!validNameRegex.test(nameVal)) {
-            errors.push("Factory Name is invalid")
+            errors.push("Factory Name is invalid. Input field must only contain characters a-z, A-z, 0-9 and spaces")
             isValid = false;
             name.addClass("alert-danger");
         } else {
             name.removeClass("alert-danger");
         }
+
+        if (minVal > threashold) {
+            errors.push(`Min Range should be less than ${threashold}`)
+            isValid = false;
+            min.addClass("alert-danger");
+        } else {
+            min.removeClass("alert-danger");
+        }
+
+        if (maxVal > threashold) {
+            errors.push(`Max Range should be less than ${threashold}`)
+            isValid = false;
+            max.addClass("alert-danger");
+        } else {
+            max.removeClass("alert-danger");
+        }
+
         if (nameVal.length < 3 || nameVal.length > 50) {
             errors.push("Factory Name should contain 3 to 50 characers.")
             isValid = false;
@@ -185,13 +198,19 @@ export function inputValidator(name, min, max, childNodes) {
         }
 
         if (!childNodesVal || childNodesVal < 1) {
-            errors.push("Children should be more than 0")
+            errors.push("Children should be more than 1 child node")
             isValid = false;
             childNodes.addClass("alert-danger");
         } else {
             childNodes.removeClass("alert-danger");
         }
-
+        if (childNodesVal > 15) {
+            errors.push("Children should be less than 15 ")
+            isValid = false;
+            childNodes.addClass("alert-danger");
+        } else {
+            childNodes.removeClass("alert-danger");
+        }
         if ((maxVal - minVal) < childNodesVal) {
             errors.push(`Cannot generate ${childNodesVal} unique children within the given range ( ${minVal} - ${maxVal} )`)
             isValid = false;
