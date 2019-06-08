@@ -66,6 +66,7 @@ $(document).ready(function () {
             } else if (action === "editName") {
                 editFactoryName(name)
             } else if (action === "delete") {
+                $(element).tooltip('hide');
                 deleteFactory(name)
             }
         }
