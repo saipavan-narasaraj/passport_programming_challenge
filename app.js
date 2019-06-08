@@ -32,7 +32,16 @@ const jsonSchemaValidator = require('./helpers/jsonSchemaValidator');
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb://localhost:27017/passportProgrammingChallenge')
+
+/* 
+   use the below for connection local MongoDB .
+*/
+// mongoose.connect('mongodb://localhost:27017/passportProgrammingChallenge')
+
+/* 
+   use the below for connection mLab MongoDB .
+*/
+mongoose.connect('mongodb+srv://admin:admin@cluster0-eifgw.mongodb.net/test?retryWrites=true&w=majority')
     .catch((err) => console.error('error connecting to mongo', err));
 
 app.use(limiter);
