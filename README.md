@@ -1,5 +1,5 @@
 # passport_programming_challenge
-Full stack web application which features for realtime tree update.
+Full stack web application with features for realtime tree update.
 
 ## Running
 
