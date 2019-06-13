@@ -1,5 +1,5 @@
 # passport_programming_challenge
-Full stack web application which features for realtime tree update.
+Full stack web application with features for realtime tree update.
 
 ## Running
 
@@ -26,7 +26,7 @@ Visit [localhost:3000](http://localhost:3000)
 ## Project Structure
 
 * **app.js**  : Entry point for application.
-* **public**  : Contains client side code like index.js, javascript and CSS files.
+* **public**  : Contains client side code like index.html, javascript and CSS files.
 * **models**  : Contains Database Schema.
 * **test**    : Contains testcases for API's.
 * **routes**  : Contains files for handeling API requests.
