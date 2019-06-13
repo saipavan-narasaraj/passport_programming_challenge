@@ -10,7 +10,8 @@ const addressSchema = {
         "name": {
             "type": "string",
             "minLength": 3,
-            "maxLength": 50
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9\\s]*$"
         },
         "minRange": {
             "type": "number",
@@ -27,7 +28,8 @@ const addressSchema = {
             "minimum": 1,
             "maximum": 15
         }
-    }
+    },
+    "required": ["name", "minRange", "maxRange", "childrenCount"]
 };
 
 let factoryValidator = (data) => {

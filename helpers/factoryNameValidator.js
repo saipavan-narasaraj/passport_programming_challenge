@@ -10,9 +10,11 @@ const addressSchema = {
         "name": {
             "type": "string",
             "minLength": 3,
-            "maxLength": 50
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z0-9\\s]*$"
         }
-    }
+    },
+    "required": ["name"]
 };
 
 let factoryNameValidator = (data) => {
