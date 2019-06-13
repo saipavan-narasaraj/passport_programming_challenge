@@ -141,7 +141,7 @@ function genetarateMicroButtons(type, factoryName, minRange = null, maxRange = n
 export function validateFactoryName(name) {
     let errors = [];
     let isValid = true;
-    let validNameRegex = /^[a-zA-Z1-9\s]*$/;
+    let validNameRegex = /^[a-zA-Z0-9\s]*$/;
     let nameVal = name.val().trim();
 
     if (!nameVal) {
