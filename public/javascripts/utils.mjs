@@ -183,7 +183,7 @@ export function inputValidator(name, min, max, childNodes) {
     let childNodesVal = parseInt(Math.round(childNodes.val()));
 
     let nameVal = name.val().trim();
-    let validNameRegex = /^[a-zA-Z1-9\s]*$/;
+    let validNameRegex = /^[a-zA-Z0-9\s]*$/;
     let threashold = 100000;
 
     if (!nameVal) {
